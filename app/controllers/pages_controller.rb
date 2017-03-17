@@ -3,17 +3,20 @@ class PagesController < ApplicationController
 require 'mechanize'
 require 'rubygems'
 require 'nokogiri'
+require 'sanitize'
+
+layout false
 
 def home
 end
 
 def page
   mechanize = Mechanize.new
-  page = mechanize.get(params[subject])
+  page = mechanize.get(params[:subject])
+  # Sanitize.clean(page)
+  @a =  page.body
 
-  a =  Nokogiri::HTML(page.body).text
-
-  render json: a
+  # render json: a
 end
 
 end
